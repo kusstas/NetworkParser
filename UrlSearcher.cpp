@@ -1,5 +1,6 @@
 #include "UrlSearcher.h"
 #include <QRegExp>
+#include <QSet>
 
 namespace network_parser
 {
@@ -13,20 +14,17 @@ UrlSearcher::UrlSearcher( QObject* parent )
 void
 UrlSearcher::search( const QString& page )
 {
-    QRegExp r_expr(
-            "[\\s<\"]((http[s]?|ftp):\\/)?\\/?([^:\\/\\s]+)((\\/\\w+)*\\/"
-            ")([\\w\\-\\.]+[^#?\\s]+)(.*)?(#[\\w\\-]+)?[\\s>\"]" );
+    QRegExp r_expr("(\\/\\S*)?(((https|http|ftp)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+)(\\/\\S*)?");
 
     emit started( );
-    QStringList result;
+    QSet< QString > result;
     int pos = 0;
 
     while ( ( pos = r_expr.indexIn( page, pos ) ) != -1 )
     {
-        result << r_expr.cap( 0 );
+        result << r_expr.cap( 2 );
         pos += r_expr.matchedLength( );
     }
-
     emit finished( result );
 }
 }  // namespace searchers

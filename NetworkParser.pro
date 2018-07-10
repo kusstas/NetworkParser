@@ -19,9 +19,13 @@ SOURCES += \
         main.cpp \
     PageDownloader.cpp \
     Logger.cpp \
-    UrlSearcher.cpp
+    UrlSearcher.cpp \
+    TextSearcher.cpp \
+    Session.cpp
 
 HEADERS += \
     PageDownloader.h \
     Logger.h \
-    UrlSearcher.h
+    UrlSearcher.h \
+    TextSearcher.h \
+    Session.h

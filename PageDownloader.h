@@ -22,7 +22,8 @@ public:
     bool is_download( ) const;
     bool is_downloaded( ) const;
     QString readAll( ) const;
-    QUrl current_url( ) const;
+    QUrl get_current_url( ) const;
+    QNetworkAccessManager& get_network_access_manager( ) const;
 
 signals:
     void started( );

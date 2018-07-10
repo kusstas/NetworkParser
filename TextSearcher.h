@@ -1,25 +1,30 @@
 #pragma once
 
 #include <QObject>
-#include <QSet>
 
 namespace network_parser
 {
 namespace searchers
 {
-class UrlSearcher : public QObject
+class TextSearcher : public QObject
 {
     Q_OBJECT
 
 public:
-    UrlSearcher( QObject* parent = nullptr );
+    explicit TextSearcher ( QObject* parent = nullptr );
+
+    const QString& get_text( ) const;
+    void set_text( const QString& text );
 
 signals:
     void started( );
-    void finished( QSet< QString > urls );
+    void finished( int count );
 
 public slots:
     void search( const QString& page );
+
+private:
+    QString m_text;
 };
 }  // namespace searchers
 }  // namespace network_parser

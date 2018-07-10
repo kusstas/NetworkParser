@@ -3,14 +3,12 @@
 #include <QNetworkAccessManager>
 #include "Logger.h"
 
-#include "PageDownloader.h"
-#include "UrlSearcher.h"
+#include <Session.h>
 
 #include <iostream>
 #include <string>
 
-using network_parser::network::PageDownloader;
-using network_parser::searchers::UrlSearcher;
+using network_parser::Session;
 using network_parser::utility::Logger;
 
 int
@@ -18,26 +16,26 @@ main( int argc, char* argv[] )
 {
     QCoreApplication application( argc, argv );
     QNetworkAccessManager network_access_manager;
+    QSet<QUrl> history;
 
-    PageDownloader page_downloader( network_access_manager );
-    UrlSearcher url_searcher;
+    Session session( network_access_manager, history );
 
-    QObject::connect(
-            &page_downloader, &PageDownloader::finished, &url_searcher, &UrlSearcher::search );
-
-    QObject::connect( &url_searcher, &UrlSearcher::finished, []( QStringList urls ) {
-        for ( auto const& url : urls )
-        {
-            Logger::message( url );
-        }
-        Logger::message( "END" );
-    } );
-
-    std::string std_url;
+    std::string std_url, std_text;
     std::cout << "Enter url: ";
     std::cin >> std_url;
+    std::cout << "Enter text: ";
+    std::cin >> std_text;
 
-    page_downloader.download( QUrl( QString::fromStdString( std_url ) ) );
+//    QObject::connect( &session, &Session::finished, [&history] () {
+//        Logger::message( "[HISTORY]" );
+//        for ( const auto& url : history )
+//        {
+//            Logger::message( url.toString() );
+//        }
+//    } );
+
+    session.set_url( QUrl( QString::fromStdString( std_url ) ) );
+    session.start( QString::fromStdString( std_text ) );
 
     return QCoreApplication::exec( );
 }
