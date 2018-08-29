@@ -5,30 +5,28 @@ namespace network_parser
 namespace searchers
 {
 TextSearcher::TextSearcher( QObject* parent )
-    : QObject ( parent )
+    : QObject( parent )
 {
 }
 
 const QString&
-TextSearcher::get_text( ) const
+TextSearcher::get_search_text( ) const
 {
-    return m_text;
+    return m_search_text;
 }
 
 void
-TextSearcher::set_text( const QString& text )
+TextSearcher::set_search_text( const QString& search_text )
 {
-    m_text = text;
+    m_search_text = search_text;
 }
 
 void
-TextSearcher::search( const QString& page )
+TextSearcher::search( const QString& text )
 {
     emit started( );
-
-    int result = page.count( m_text );
+    int result = text.count( m_search_text );
     emit finished( result );
 }
-
 }  // namespace searchers
 }  // namespace network_parser

@@ -17,25 +17,24 @@ class Session : public QObject
 
 public:
     explicit Session( QNetworkAccessManager& network_access_manager,
-                      QSet< QUrl >& history,
+                      QSet< QUrl >* history = nullptr,
                       QObject* parent = nullptr );
-    QUrl get_url( ) const;
-    void set_url( QUrl url );
+
+    void set_url( const QUrl& url );
+    const QUrl& get_url( ) const;
+
+    void set_search_text( const QString& text );
+    const QString& get_search_text( );
 
 signals:
     void started( );
-    void finished( int result, QSet<QUrl> urls );
+    void finished( int result );
 
 public slots:
-    void start( QString text );
-
-private slots:
-    void on_failed_download( );
-    void on_text_searcher_finished( int count );
-    void on_url_searcher_finished ( QSet< QString > result );
+    void start( );
 
 private:
-    QSet< QUrl >& m_history;
+    QSet< QUrl >* m_history;
     QUrl m_url;
     int m_result;
 

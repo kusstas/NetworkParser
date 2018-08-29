@@ -11,20 +11,20 @@ class TextSearcher : public QObject
     Q_OBJECT
 
 public:
-    explicit TextSearcher ( QObject* parent = nullptr );
+    explicit TextSearcher( QObject* parent = nullptr );
 
-    const QString& get_text( ) const;
-    void set_text( const QString& text );
+    const QString& get_search_text( ) const;
+    void set_search_text( const QString& search_text );
 
 signals:
     void started( );
     void finished( int count );
 
 public slots:
-    void search( const QString& page );
+    void search( const QString& text );
 
 private:
-    QString m_text;
+    QString m_search_text;
 };
 }  // namespace searchers
 }  // namespace network_parser

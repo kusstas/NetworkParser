@@ -12,15 +12,15 @@ UrlSearcher::UrlSearcher( QObject* parent )
 }
 
 void
-UrlSearcher::search( const QString& page )
+UrlSearcher::search( const QString& text )
 {
-    QRegExp r_expr("(\\/\\S*)?(((https|http|ftp)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+)(\\/\\S*)?");
+    QRegExp r_expr( "(\\/\\S*)?(((https|http|ftp)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+)(\\/\\S*)?" );
 
     emit started( );
     QSet< QString > result;
     int pos = 0;
 
-    while ( ( pos = r_expr.indexIn( page, pos ) ) != -1 )
+    while ( ( pos = r_expr.indexIn( text, pos ) ) != -1 )
     {
         result << r_expr.cap( 2 );
         pos += r_expr.matchedLength( );

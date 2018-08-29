@@ -19,7 +19,7 @@ signals:
     void finished( QSet< QString > urls );
 
 public slots:
-    void search( const QString& page );
+    void search( const QString& text );
 };
 }  // namespace searchers
 }  // namespace network_parser
