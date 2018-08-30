@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QUrl>
 #include <QSet>
 
 namespace network_parser
@@ -16,7 +17,7 @@ public:
 
 signals:
     void started( );
-    void finished( QSet< QString > urls );
+    void finished( QSet< QUrl > urls );
 
 public slots:
     void search( const QString& text );

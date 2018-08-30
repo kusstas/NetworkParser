@@ -26,17 +26,29 @@ public:
     void set_search_text( const QString& text );
     const QString& get_search_text( );
 
+    int get_result( ) const;
+
 signals:
     void started( );
-    void finished( int result );
+    void finished( );
 
 public slots:
     void start( );
 
+private slots:
+    void on_url_searcher_finished( QSet< QUrl > urls );
+    void on_text_searcher_finished( int count );
+
 private:
-    QSet< QUrl >* m_history;
-    QUrl m_url;
-    int m_result;
+    void check_on_finish_session( );
+
+private:
+    QSet< QUrl >* m_history = nullptr;
+    QUrl m_url{};
+    int m_result = 0;
+
+    bool m_url_searcher_finished = false;
+    bool m_text_searcher_finished = false;
 
     network::PageDownloader m_page_downloader;
     searchers::TextSearcher m_text_searcher;

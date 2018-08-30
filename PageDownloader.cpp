@@ -29,6 +29,12 @@ PageDownloader::is_downloaded( ) const
     return m_is_downloaded;
 }
 
+QNetworkAccessManager&
+PageDownloader::get_network_access_manager( ) const
+{
+    return m_network_access_manager;
+}
+
 void
 PageDownloader::download( const QUrl& url )
 {

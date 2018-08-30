@@ -28,6 +28,7 @@ main( int argc, char* argv[] )
 
     session.set_url( QUrl( QString::fromStdString( std_url ) ) );
     session.set_search_text( QString::fromStdString( std_text ) );
+    session.start();
 
     return application.exec( );
 }

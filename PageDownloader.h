@@ -19,6 +19,8 @@ public:
     bool is_download( ) const;
     bool is_downloaded( ) const;
 
+    QNetworkAccessManager& get_network_access_manager( ) const;
+
 signals:
     void started( );
     void failed( const QString& error );

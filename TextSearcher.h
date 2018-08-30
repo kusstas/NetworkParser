@@ -24,7 +24,7 @@ public slots:
     void search( const QString& text );
 
 private:
-    QString m_search_text;
+    QString m_search_text{};
 };
 }  // namespace searchers
 }  // namespace network_parser
